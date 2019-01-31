@@ -83,6 +83,7 @@ def add_diner():
     if current_balance != Decimal128("0"):
         if current_balance != Decimal128("0.0"):
             return "Check amount is not 0"
+
     for field in worker_coll.find():
         for i in range(count):
             if field['name'] == time_details[i]['worker']['name']:
