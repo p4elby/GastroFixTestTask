@@ -1,0 +1,26 @@
+<application>
+  <component name="NodeJsLocalInterpreters">
+    <local-interpreter path="C:/Program Files/nodejs/node.exe">
+      <version-cache version="10.14.1" last-modified="1543497418000" />
+    </local-interpreter>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExpandBeforeRunStepsPanel" value="true" />
+    <property name="ExpandRunDashboardTypesPanel" value="false" />
+    <property name="PACKAGE_FILTER" value="firebase&#10;sqlalchemy&#10;flask" />
+    <property name="PyCharm.InitialConfiguration" value="true" />
+    <property name="PyCharm.InitialConfiguration.V2" value="true" />
+    <property name="PyCharm.InitialConfiguration.V3" value="true" />
+    <property name="PyCharm.InitialConfiguration.V4" value="true" />
+    <property name="PyCharm.InitialConfiguration.V5" value="true" />
+    <property name="PyCharm.InitialConfiguration.V6" value="true" />
+    <property name="PyCharm.InitialConfiguration.V7" value="true" />
+    <property name="PyCharm.initialConfigurationShown" value="true" />
+    <property name="evlsprt3.183" value="17" />
+    <property name="file.chooser.recent.files" value="E:/Programs/TestTask&#10;E:/ServerForAndroid" />
+    <property name="file.gist.reindex.count" value="6474" />
+    <property name="fileTypeChangedCounter" value="1" />
+    <property name="lastTip" value="37" />
+    <property name="ts.lib.d.ts.version" value="3.2.1" />
+  </component>
+</application>
