@@ -10,6 +10,6 @@
 * change "app.config["MONGO_URI"] =  "mongodb://YOURHOSTNAME:YOURPORT/Diner"
 * in app.py PRESS "Ctrl + Shift + F10"
 * Click at terminal :
-  * input "cd client"
-  * input "npm install"
-  * input "npm start"
+  * enter command "cd client"
+  * enter command "npm install"
+  * enter command "npm start"
