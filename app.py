@@ -88,7 +88,6 @@ def add_diner():
             if field['name'] == time_details[i]['worker']['name']:
                 workers.append({'worker': {'idWorker': field['_id']},
                                 'given': time_details[i]['given'], 'get': time_details[i]['get']})
-
                 new_balance = Decimal128(Decimal(time_details[i]['given']) + Decimal(time_details[i]['get']))
                 if new_balance != Decimal128("0.0"):
                     balance_now = balance_coll.find_one({'workerId': field['_id']})
