@@ -4,7 +4,7 @@
 * Download project
 * Open project in Pycharm
 * Open app.py
-* Change "app.config["MONGO_URI"] =  "mongodb://YOURHOSTNAME:YOURPORT/Diner"
+* Change "app.config["MONGO_URI"] =  "mongodb://HOSTNAME:PORT/Diner"
 * In app.py PRESS "Ctrl + Shift + F10"
 * Click at terminal :
   * enter command "cd client"
