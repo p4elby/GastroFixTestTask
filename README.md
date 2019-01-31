@@ -1,9 +1,6 @@
 # GastroFixTestTask
 * Open MongoDB Compass :
   * Сonnect to some host
-  * Create new DataBase :
-    * Name DataBase : Diner
-    * Name Collection : Diner
 * Download project
 * Open project in Pycharm
 * Open app.py
