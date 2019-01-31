@@ -6,9 +6,9 @@
     * Name Collection : Diner
 * Download project
 * Open project in Pycharm
-* open app.py
-* change "app.config["MONGO_URI"] =  "mongodb://YOURHOSTNAME:YOURPORT/Diner"
-* in app.py PRESS "Ctrl + Shift + F10"
+* Open app.py
+* Change "app.config["MONGO_URI"] =  "mongodb://YOURHOSTNAME:YOURPORT/Diner"
+* In app.py PRESS "Ctrl + Shift + F10"
 * Click at terminal :
   * enter command "cd client"
   * enter command "npm install"
