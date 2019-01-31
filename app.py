@@ -78,17 +78,21 @@ def add_diner():
     for field in worker_coll.find():
         for i in range(count):
             if field['name'] == time_details[i]['worker']['name']:
+                new_balance = Decimal128(Decimal(time_details[i]['given']) + Decimal(time_details[i]['get']))
+                current_balance = Decimal128(current_balance.to_decimal() + new_balance.to_decimal())
+    if current_balance != Decimal128("0"):
+        if current_balance != Decimal128("0.0"):
+            return "Check amount is not 0"
+    for field in worker_coll.find():
+        for i in range(count):
+            if field['name'] == time_details[i]['worker']['name']:
                 workers.append({'worker': {'idWorker': field['_id']},
                                 'given': time_details[i]['given'], 'get': time_details[i]['get']})
                 new_balance = Decimal128(Decimal(time_details[i]['given']) + Decimal(time_details[i]['get']))
-                current_balance = Decimal128(current_balance.to_decimal()+new_balance.to_decimal())
                 if new_balance != Decimal128("0.0"):
                     balance_now = balance_coll.find_one({'workerId': field['_id']})
                     time_balance = Decimal128(balance_now['balance'].to_decimal() + new_balance.to_decimal())
                     balance_coll.update_one({'_id': balance_now['_id']}, {'$set': {'balance': time_balance}})
-    if current_balance != Decimal128("0"):
-        if current_balance != Decimal128("0.0"):
-            return "Check amount is not 0"
     time_diner = diner.Diner.make_diner({'title': operation['title'], 'date': operation['date'], 'details': workers})
     data = {'title': time_diner.title, 'date': time_diner.date, 'details': time_diner.details}
     diner_coll.insert(data)
