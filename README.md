@@ -2,8 +2,8 @@
 * Open MongoDB Compass :
   * Сonnect to some host
   * Create new DataBase :
-    * Name DataBase Diner
-    * Name Collection Diner
+    * Name DataBase : Diner
+    * Name Collection : Diner
 * Download project
 * Open project in Pycharm
 * open app.py
