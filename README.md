@@ -10,6 +10,6 @@
   * enter command "cd client"
   * enter command "npm install"
   * enter command "npm start"
-Attention : 
-* When adding a transaction, use names that are in the base
-* get must be <0 (Example : -5, -10 etc.) 
+* Attention : 
+  * When adding a transaction, use names that are in the base
+  * Get must be <0 (Example : -5, -10 etc.) 
