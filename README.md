@@ -12,4 +12,4 @@
   * enter command "npm start"
 * Attention : 
   * When adding a transaction, use names that are in the base
-  * Get must be <0 (Example : -5, -10 etc.) 
+  * Get must be <0 (Example : -5, -10.55 etc.) 
