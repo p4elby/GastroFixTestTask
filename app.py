@@ -14,13 +14,13 @@ mongo = PyMongo(app)
 
 @app.route('/methods/workers', methods=['GET'])
 def get_all_workers():
-    workers_coll = mongo.db.Workers
-    balance_coll = mongo.db.Balance
+    worker_coll = mongo.db.Workers
     result = []
-    for x in workers_coll.find():
-        for y in balance_coll.find():
-            if x['_id'] == y['workerId']:
-                result.append({'name': x['name'], 'balance': y['balance']})
+    some_result = worker_coll.aggregate(
+        [{'$lookup': {'from': 'Balance', 'localField': '_id', 'foreignField': 'workerId', 'as': "balance"}},
+         {'$project': {"_id": 0, "name": "$name", "balance": "$balance.balance"}}])
+    for field in some_result:
+        result.append({'name': field['name'], 'balance': field['balance'][0]})
     return json.dumps(result, ensure_ascii=False, default=str)
 
 
