@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/Diner"
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/Diner'
 mongo = PyMongo(app)
 
 
@@ -16,10 +16,10 @@ mongo = PyMongo(app)
 def get_all_workers():
     worker_coll = mongo.db.Workers
     result = []
-    some_result = worker_coll.aggregate(
-        [{'$lookup': {'from': 'Balance', 'localField': '_id', 'foreignField': 'workerId', 'as': "balance"}},
-         {'$project': {"_id": 0, "name": "$name", "balance": "$balance.balance"}}])
-    for field in some_result:
+    time_result = worker_coll.aggregate(
+        [{'$lookup': {'from': 'Balance', 'localField': '_id', 'foreignField': 'workerId', 'as': 'balance'}},
+         {'$project': {'_id': 0, 'name': '$name', 'balance': '$balance.balance'}}])
+    for field in time_result:
         result.append({'name': field['name'], 'balance': field['balance'][0]})
     return json.dumps(result, ensure_ascii=False, default=str)
 
@@ -29,7 +29,7 @@ def add_workers():
     workers_coll = mongo.db.Workers
     balance_coll = mongo.db.Balance
     result = []
-    time_worker = worker.Worker.make_worker({'name' : request.get_json()['name']})
+    time_worker = worker.Worker.make_worker({'name': request.get_json()['name']})
     new_worker_id = workers_coll.insert({'name': time_worker.name})
     new_worker = workers_coll.find_one({'_id': new_worker_id})
     time_balance = balance.Balance.make_balance({'workerId': new_worker_id})
@@ -60,7 +60,7 @@ def get_diner_loc():
         for i in range(count_time_details):
             time_detail.append({'worker': time_diner.details[i].worker,
                                 'given': time_diner.details[i].given, 'get': time_diner.details[i].get})
-        result.append({'title': time_diner.title, 'date': time_diner.date, 'details': time_detail, "_id": field['_id']})
+        result.append({'title': time_diner.title, 'date': time_diner.date, 'details': time_detail, '_id': field['_id']})
     return json.dumps(result, ensure_ascii=False, default=str)
 
 
@@ -74,22 +74,22 @@ def add_diner():
     operation = request.get_json()
     time_details = operation['details']
     count = len(time_details)
-    current_balance = Decimal128("0")
+    current_balance = Decimal128('0')
     for field in worker_coll.find():
         for i in range(count):
             if field['name'] == time_details[i]['worker']['name']:
                 new_balance = Decimal128(Decimal(time_details[i]['given']) + Decimal(time_details[i]['get']))
                 current_balance = Decimal128(current_balance.to_decimal() + new_balance.to_decimal())
-    if current_balance != Decimal128("0"):
-        if current_balance != Decimal128("0.0"):
-            return "Check amount is not 0"
+    if current_balance != Decimal128('0'):
+        if current_balance != Decimal128('0.0'):
+            return 'Check amount is not 0'
     for field in worker_coll.find():
         for i in range(count):
             if field['name'] == time_details[i]['worker']['name']:
                 workers.append({'worker': {'idWorker': field['_id']},
                                 'given': time_details[i]['given'], 'get': time_details[i]['get']})
                 new_balance = Decimal128(Decimal(time_details[i]['given']) + Decimal(time_details[i]['get']))
-                if new_balance != Decimal128("0.0"):
+                if new_balance != Decimal128('0.0'):
                     balance_now = balance_coll.find_one({'workerId': field['_id']})
                     time_balance = Decimal128(balance_now['balance'].to_decimal() + new_balance.to_decimal())
                     balance_coll.update_one({'_id': balance_now['_id']}, {'$set': {'balance': time_balance}})
