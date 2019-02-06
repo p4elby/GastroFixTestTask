@@ -42,25 +42,39 @@ def add_workers():
 @app.route('/methods/diner', methods=['GET'])
 def get_diner_loc():
     diner_coll = mongo.db.DinerLocation
-    worker_coll = mongo.db.Workers
     result = []
-    for field in diner_coll.find():
-        time_details = (field['details'])
-        count = len(time_details)
-        time_worker = []
+    second_result = diner_coll.aggregate([
+        {'$lookup': {'from': 'Workers', 'localField': 'details.worker.idWorker', 'foreignField': '_id', 'as': 'diner'}},
+        {'$project': {
+            '_id': 0,
+            'diner': {
+                '_id': '$_id',
+                'title': '$title',
+                'date': '$date',
+                'details': [{
+                    'worker': {
+                        'idWorker': '$details.worker.idWorker',
+                        'name': '$diner.name'
+                    },
+                    'given': '$details.given',
+                    'get': '$details.get'
+                }]
+            }
+        }
+        }
+    ])
+    for field in second_result:
+        time_result = field['diner'][0]
+        count = len(time_result['details'][0]['worker']['idWorker'])
+        time_details = []
         for i in range(count):
-            for y in worker_coll.find():
-                if y['_id'] == time_details[i]['worker']['idWorker']:
-                    time_worker.append({'worker': {'idWorker': y['_id'], 'name': y['name']},
-                                        'given': time_details[i]['given'], 'get': time_details[i]['get']})
-        time_detail = details.Details.make_details(time_worker)
-        time_diner = diner.Diner.make_diner({'title': field['title'], 'date': field['date'], 'details': time_detail})
-        count_time_details = len(time_diner.details)
-        time_detail = []
-        for i in range(count_time_details):
-            time_detail.append({'worker': time_diner.details[i].worker,
-                                'given': time_diner.details[i].given, 'get': time_diner.details[i].get})
-        result.append({'title': time_diner.title, 'date': time_diner.date, 'details': time_detail, '_id': field['_id']})
+            time_details.append({'worker': {
+                            'idWorker': time_result['details'][0]['worker']['idWorker'][i],
+                            'name': time_result['details'][0]['worker']['name'][i]
+                        },
+                        'given': time_result['details'][0]['given'][i],
+                        'get': time_result['details'][0]['get'][i]})
+        result.append({'_id': time_result['_id'], 'title': time_result['title'], 'date': time_result['date'], 'details': time_details})
     return json.dumps(result, ensure_ascii=False, default=str)
 
 
